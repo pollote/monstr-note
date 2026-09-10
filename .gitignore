@@ -1,0 +1,4 @@
+node_modules/
+monstr-note-encrypted.zip
+.DS_Store
+*.log

@@ -1,0 +1,74 @@
+{
+  "manifest_version": 3,
+  "name": "Monstr Note (Encrypted Nostr Sync)",
+  "version": "1.0.0",
+  "description": "End-to-end encrypted notes with real-time cross-device sync powered by Nostr (deepmarks protocol).",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "monstr-note-encrypted@antigravity.org",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "permissions": [
+    "storage",
+    "downloads",
+    "contextMenus",
+    "activeTab",
+    "notifications",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["dist/content-bridge.bundle.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "background": {
+    "scripts": ["dist/background.bundle.js"],
+    "type": "module"
+  },
+  "sidebar_action": {
+    "default_title": "Monstr Note",
+    "default_panel": "src/sidebar/sidebar.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    }
+  },
+  "action": {
+    "default_title": "Monstr Note",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    }
+  },
+  "commands": {
+    "_execute_sidebar_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Toggle Monstr Note Sidebar"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

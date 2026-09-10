@@ -1,0 +1,59 @@
+:root {
+  /* Firefox Proton Theme Palette */
+  --fox-orange: #ff5000;
+  --fox-gradient: linear-gradient(135deg, #ff0055 0%, #ff5000 50%, #ff9500 100%);
+  --fox-purple-gradient: linear-gradient(135deg, #7c3aed 0%, #9059ff 50%, #d946ef 100%);
+  --fox-purple: #9059ff;
+  
+  --bg-primary: #1c1b22;
+  --bg-secondary: #2b2a33;
+  --bg-tertiary: #383742;
+  --bg-hover: #42414d;
+  --bg-active: #52515e;
+  
+  --border-color: #42414d;
+  --border-subtle: #2b2a33;
+  
+  --text-primary: #fbfbfe;
+  --text-secondary: #cfcfd8;
+  --text-muted: #8f8f9d;
+  
+  --accent-color: #9059ff;
+  --accent-hover: #7c3aed;
+  --accent-alpha: rgba(144, 89, 255, 0.15);
+  
+  --success-color: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.15);
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif;
+  --font-mono: "Fira Code", "Cascadia Code", Consolas, Monaco, "Courier New", monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f0f4;
+  --bg-tertiary: #e0e0e6;
+  --bg-hover: #d7d7db;
+  --bg-active: #c5c5ca;
+  
+  --border-color: #d7d7db;
+  --border-subtle: #e0e0e6;
+  
+  --text-primary: #15141a;
+  --text-secondary: #5b5b66;
+  --text-muted: #8f8f9d;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monstr Note</title>
+  <link rel="stylesheet" href="../styles/theme.css">
+  <link rel="stylesheet" href="../styles/notes.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header Bar -->
+    <header class="header-bar">
+      <div class="brand-section">
+        <span id="header-list-title" class="header-title">Notes</span>
+        <button id="btn-back-to-list" class="back-btn" style="display: none;" title="Back to Notes List">
+          <span class="back-arrow">‹</span>
+          <span id="editor-header-title" class="header-note-title">Note Title</span>
+        </button>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-user-avatar" class="user-avatar-btn" title="Paired Account Settings"></button>
+        
+        <div class="dropdown-menu-container">
+          <button id="btn-more-menu" class="icon-btn" title="Per-Note Actions">⋮</button>
+          <div id="more-menu-dropdown" class="menu-dropdown">
+            <button id="btn-menu-new-note" class="menu-item">➕ New Note</button>
+            <button id="btn-export" class="menu-item">💾 Export Note...</button>
+            <button id="btn-export-backup-menu" class="menu-item">📥 Export Backup (.json)</button>
+            <button id="btn-import-backup-menu" class="menu-item">📤 Restore Backup (.json)</button>
+            <button id="btn-delete" class="menu-item danger">🗑️ Delete Note</button>
+            <hr class="menu-divider">
+            <button id="btn-pin" class="menu-item">📌 Pin Note</button>
+            <button id="btn-menu-login" class="menu-item highlight-login-item">🔑 Pair / Login</button>
+            <button id="btn-sync-settings" class="menu-item">⚙️ Sync & Signer Settings</button>
+            <hr class="menu-divider">
+            <button id="btn-open-tab" class="menu-item">↗️ Open Full Tab</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- VIEW 1: Notes List Panel (Default View matching official Monstr Note UI) -->
+    <div id="view-notes-list" class="view-panel notes-list-view">
+      <button id="btn-list-new-note" class="btn-new-note-bar">
+        <span class="plus-icon">+</span> New Note
+      </button>
+
+      <div class="drawer-search">
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <input type="text" id="search-input" class="search-input" placeholder="Search notes..." style="flex: 1;">
+          <select id="group-by-select" class="group-by-select" title="Group Notes By">
+            <option value="none">Sort: Recent</option>
+            <option value="tag">Group: Tag 🏷️</option>
+            <option value="color">Group: Color 🎨</option>
+            <option value="date">Group: Date 📅</option>
+          </select>
+        </div>
+        <div id="active-tag-filter" class="active-filter-badge" style="display: none;">
+          <span id="active-tag-filter-text">Filter: #work</span>
+          <button id="btn-clear-tag-filter" class="clear-filter-btn" title="Clear Tag Filter">✕</button>
+        </div>
+      </div>
+
+      <div id="main-notes-list" class="notes-cards-list">
+        <!-- Rendered Note Items -->
+      </div>
+
+      <footer class="notes-list-footer">
+        <div id="sync-status-badge-list" class="sync-badge">
+          <span class="sync-dot"></span>
+          <span id="sync-status-text-list">🔒 Encrypted</span>
+        </div>
+        <button id="btn-list-more" class="icon-btn" title="Signer & Sync Settings">⚙️</button>
+      </footer>
+    </div>
+
+    <!-- VIEW 2: Note Editor View -->
+    <div id="view-note-editor" class="view-panel note-editor-view" style="display: none;">
+      <!-- Minimal Formatting Bar -->
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <button class="tool-btn" data-action="bold" title="Bold"><b>B</b></button>
+          <button class="tool-btn" data-action="italic" title="Italic"><i>I</i></button>
+          <button class="tool-btn" data-action="strike" title="Strikethrough"><s>S</s></button>
+          <div class="divider"></div>
+          <button class="tool-btn" data-action="h1" title="Heading 1">H1</button>
+          <button class="tool-btn" data-action="h2" title="Heading 2">H2</button>
+          <button class="tool-btn" data-action="h3" title="Heading 3">H3</button>
+          <div class="divider"></div>
+          <button class="tool-btn" data-action="list" title="Bullet List">•</button>
+          <button class="tool-btn" data-action="checklist" title="Interactive Todo Checklist">☑</button>
+          <button class="tool-btn" data-action="code" title="Code"><code>&lt;&gt;</code></button>
+          <button class="tool-btn" data-action="quote" title="Quote">”</button>
+          <div class="divider"></div>
+          <button id="btn-reminder-picker" class="tool-btn" title="Set Reminder / Timer">⏰</button>
+          <div class="divider"></div>
+          <div class="color-picker-bar" id="editor-color-picker" title="Note Color Accent">
+            <button class="color-swatch active" data-color="fox-accent" style="background-color: #9059ff;" title="Purple (Default)"></button>
+            <button class="color-swatch" data-color="red" style="background-color: #ff4d6d;" title="Red"></button>
+            <button class="color-swatch" data-color="yellow" style="background-color: #ffb703;" title="Yellow"></button>
+            <button class="color-swatch" data-color="green" style="background-color: #2a9d8f;" title="Green"></button>
+            <button class="color-swatch" data-color="blue" style="background-color: #00b4d8;" title="Blue"></button>
+            <button class="color-swatch" data-color="purple" style="background-color: #b5179e;" title="Deep Violet"></button>
+          </div>
+        </div>
+
+        <div class="mode-toggle">
+          <button id="tab-edit" class="mode-btn active">Edit</button>
+          <button id="tab-preview" class="mode-btn">Preview</button>
+        </div>
+      </div>
+
+      <!-- Editor Workspace -->
+      <main class="editor-workspace">
+        <input type="text" id="note-title-input" class="title-input" placeholder="Note Title...">
+        <div class="tags-bar">
+          <span style="font-size: 11px; color: var(--text-muted);">🏷️</span>
+          <input type="text" id="note-tags-input" class="tags-input" placeholder="Add tags (e.g. work, idea, todo)...">
+          <div id="note-tags-chips" class="tags-chips-list" style="display: flex; gap: 4px; flex-wrap: wrap;"></div>
+        </div>
+        <textarea id="note-content-input" class="content-textarea" placeholder="Write in Markdown or rich text..."></textarea>
+        <div id="note-markdown-preview" class="markdown-preview" style="display: none;"></div>
+      </main>
+
+      <!-- Bottom Status Bar -->
+      <footer class="status-bar">
+        <div id="word-count">0 words</div>
+        <div id="sync-status-badge" class="sync-badge">
+          <span class="sync-dot"></span>
+          <span id="sync-status-text">🔒 Encrypted</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Reminder / Timer Modal -->
+  <div id="reminder-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 340px;">
+      <div class="modal-header">
+        <h3 class="modal-title">⏰ Set Note Reminder & Timer</h3>
+        <button id="btn-close-reminder-modal" class="icon-btn">✕</button>
+      </div>
+
+      <div style="margin-top: 8px;">
+        <label style="font-size: 11px; font-weight: 600; color: var(--text-muted);">QUICK TIMERS:</label>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;">
+          <button class="btn-timer-preset" data-minutes="5">⏱️ 5m</button>
+          <button class="btn-timer-preset" data-minutes="15">⏱️ 15m</button>
+          <button class="btn-timer-preset" data-minutes="30">⏱️ 30m</button>
+          <button class="btn-timer-preset" data-minutes="60">⏱️ 1h</button>
+          <button class="btn-timer-preset" data-minutes="180">⏱️ 3h</button>
+          <button class="btn-timer-preset" data-minutes="1440">⏱️ 24h</button>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px;">
+        <label style="font-size: 11px; font-weight: 600; color: var(--text-muted);">CUSTOM DATE & TIME:</label>
+        <div style="display: flex; gap: 6px; margin-top: 6px;">
+          <input type="datetime-local" id="input-reminder-datetime" class="search-input" style="font-size: 12px;">
+          <button id="btn-set-custom-reminder" class="btn-primary" style="font-size: 12px; padding: 4px 10px;">Set</button>
+        </div>
+      </div>
+
+      <div id="section-active-reminder" style="margin-top: 14px; padding: 10px; background: var(--bg-tertiary); border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: none;">
+        <div style="font-size: 12px; font-weight: 600; color: var(--accent-color);" id="text-active-reminder">Active Reminder: ...</div>
+        <button id="btn-clear-reminder" class="btn-primary" style="margin-top: 6px; width: 100%; background: var(--error-color); font-size: 11px; padding: 4px;">Clear Reminder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Alert Toast Overlay -->
+  <div id="reminder-alert-toast" class="reminder-toast-alert" style="display: none;">
+    <div class="toast-content">
+      <span class="toast-icon">⏰</span>
+      <div class="toast-text">
+        <div class="toast-title">REMINDER ALERT!</div>
+        <div id="toast-note-title" class="toast-subtitle">Note Title</div>
+      </div>
+    </div>
+    <div class="toast-actions">
+      <button id="btn-toast-view" class="toast-btn primary">View Note</button>
+      <button id="btn-toast-dismiss" class="toast-btn">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Signer & Sync Settings Modal -->
+  <div id="sync-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">🔑 Signer & Sync Settings</h3>
+        <button id="btn-close-modal" class="icon-btn">✕</button>
+      </div>
+
+      <div>
+        <label style="font-size: 11px; font-weight: 600; color: var(--text-muted);">SIGNER METHOD:</label>
+        <div style="display: flex; gap: 10px; margin-top: 4px;">
+          <label style="font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+            <input type="radio" name="signer-mode" value="vault" id="signer-mode-vault" checked> Built-in Key Vault (nsec)
+          </label>
+          <label style="font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+            <input type="radio" name="signer-mode" value="nip07" id="signer-mode-nip07"> Extension (nos2x-fox / Alby)
+          </label>
+        </div>
+      </div>
+
+      <div id="section-vault-details">
+        <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;">
+          Copy your <b>Sync Key</b> to pair another device / instance:
+        </p>
+
+        <div id="key-display" class="key-box">nsec1...</div>
+
+        <button id="btn-copy-key" class="btn-primary" style="width: 100%; margin-top: 6px;">📋 Copy Sync Key</button>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 8px 0;">
+
+        <label style="font-size: 11px; font-weight: 600; color: var(--text-muted);">PAIR NEW DEVICE / INSTANCE:</label>
+        <div style="display: flex; gap: 6px; margin-top: 4px;">
+          <input type="text" id="input-import-key" class="search-input" placeholder="Paste nsec1... key">
+          <button id="btn-import-key" class="btn-primary">Pair</button>
+        </div>
+      </div>
+
+      <div id="section-nip07-status" style="display: none; background: var(--bg-primary); padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+        <div style="font-size: 12px; font-weight: 600; color: var(--accent-color);" id="nip07-info-text">Detecting nos2x-fox / Alby...</div>
+        <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;" id="nip07-pubkey-display">Not connected</div>
+        <button id="btn-connect-nip07" class="btn-primary" style="margin-top: 6px; width: 100%;">🦊 Connect nos2x-fox / Alby</button>
+      </div>
+
+      <div>
+        <label style="font-size: 11px; font-weight: 600; color: var(--text-muted);">PROFILE AVATAR IMAGE URL:</label>
+        <div style="display: flex; gap: 6px; margin-top: 4px;">
+          <input type="text" id="input-avatar-url" class="search-input" placeholder="https://... profile picture URL">
+          <button id="btn-save-avatar" class="btn-primary">Save</button>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size: 11px; font-weight: 600; color: var(--text-muted);">LOCAL BACKUP & RESTORE:</label>
+        <div style="margin-top: 4px; display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; color: var(--text-primary);">
+            <input type="checkbox" id="chk-auto-backup" checked> Automatically keep local backup snapshot
+          </label>
+          <div style="display: flex; gap: 6px;">
+            <button id="btn-export-backup" class="btn-primary" style="flex: 1; font-size: 11px; padding: 5px 8px;">📥 Export Backup (.json)</button>
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center; margin-top: 2px;">
+            <input type="file" id="input-import-backup" accept=".json" style="display: none;">
+            <button id="btn-trigger-import-backup" class="btn-primary" style="width: 100%; font-size: 11px; padding: 5px 8px; background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color);">📤 Restore Notes from Backup File...</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size: 11px; font-weight: 600; color: var(--text-muted);">RELAYS:</label>
+        <ul id="relay-list" style="margin-top: 4px; font-size: 11px; color: var(--text-secondary); padding-left: 14px;">
+          <li>wss://relay.damus.io</li>
+          <li>wss://nos.lol</li>
+          <li>wss://relay.nostr.band</li>
+          <li>wss://relay.deepmarks.org</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../dist/sidebar.bundle.js"></script>
+</body>
+</html>

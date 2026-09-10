@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="foxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff0055"/>
+      <stop offset="50%" stop-color="#ff5000"/>
+      <stop offset="100%" stop-color="#ff9500"/>
+    </linearGradient>
+    <linearGradient id="lockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9059ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="64" cy="64" r="60" fill="url(#foxGrad)"/>
+
+  <!-- Firefox Note Sheet -->
+  <rect x="36" y="32" width="56" height="68" rx="8" fill="#ffffff" opacity="0.95"/>
+
+  <!-- Note Lines -->
+  <line x1="48" y1="50" x2="80" y2="50" stroke="#ff5000" stroke-width="4" stroke-linecap="round"/>
+  <line x1="48" y1="62" x2="74" y2="62" stroke="#2b2a33" stroke-width="4" stroke-linecap="round"/>
+  <line x1="48" y1="74" x2="68" y2="74" stroke="#2b2a33" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Encryption Lock Badge -->
+  <circle cx="88" cy="88" r="22" fill="url(#lockGrad)"/>
+  <path d="M82 86 v-4 a6 6 0 0 1 12 0 v4" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  <rect x="80" y="86" width="16" height="12" rx="2" fill="#ffffff"/>
+</svg>

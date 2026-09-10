@@ -1,0 +1,33 @@
+{
+  "name": "monstr-note-nostr",
+  "version": "1.0.0",
+  "description": "Monstr Note WebExtension with E2E encrypted cross-instance Nostr synchronization",
+  "main": "src/background/background.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "build": "node scripts/build.js && node scripts/package.js",
+    "package": "node scripts/package.js",
+    "watch": "node scripts/watch.js"
+  },
+  "keywords": [
+    "monstr",
+    "notes",
+    "extension",
+    "nostr",
+    "nip44",
+    "encryption",
+    "sync",
+    "webextension"
+  ],
+  "author": "Deepmarks / Monstr Note",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "@noble/curves": "^1.4.0",
+    "@noble/hashes": "^1.4.0",
+    "nostr-tools": "^2.25.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

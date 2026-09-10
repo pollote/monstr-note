@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Monstr Note - Quick Note</title>
+  <link rel="stylesheet" href="../styles/theme.css">
+  <link rel="stylesheet" href="../styles/notes.css">
+  <style>
+    body { width: 360px; height: 480px; }
+    .notes-sidebar { width: 100%; border-right: none; }
+  </style>
+</head>
+<body>
+  <div class="app-container" style="flex-direction: column;">
+    <div class="sidebar-header">
+      <div class="brand-row">
+        <div class="brand-logo">
+          <span class="brand-icon">👾🔒</span>
+          <span>Monstr Note</span>
+        </div>
+        <div class="header-actions">
+          <button id="btn-open-sidebar" class="icon-btn" title="Open Sidebar Panel">📑 Sidebar</button>
+          <button id="btn-popup-new" class="btn-primary">+ Quick Note</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-content-container" style="flex: 1; padding: 12px;">
+      <input type="text" id="popup-title" class="title-input" placeholder="Quick Note Title...">
+      <textarea id="popup-content" class="content-textarea" placeholder="Jot down a quick note..."></textarea>
+    </div>
+
+    <footer class="status-bar">
+      <span id="popup-sync-status">🔒 Encrypted & Synced</span>
+      <button id="btn-open-full" class="icon-btn" style="font-size: 11px;">Expand ↗️</button>
+    </footer>
+  </div>
+
+  <script src="../../dist/popup.bundle.js"></script>
+</body>
+</html>
